@@ -1,0 +1,15 @@
+.header {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-gap: 30px;
+    padding: 250px 20px 250px 20px;
+
+  }
+
+  .header-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 100px;
+      padding-left: 30px;
+    }
+  
+  
+  

@@ -34,10 +34,10 @@ class Search extends Component {
     render() {
         return (
             <div className='lgcards'>
-                    <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)}/> 
+                    <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} placeholder="Destination Address"/> 
                     {
                         this.state.searchResults.map(result => {
-                        console.log(result.formatted_address);
+                        console.log(result.formatted_address); 
                             return (
                                 <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result)}/>
                             )

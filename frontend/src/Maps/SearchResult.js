@@ -9,6 +9,7 @@ class SearchResult extends Component {
         return (
             <div onClick={this.props.onClick} className="address">
                 {this.props.address}
+                
             </div>
         )
     }

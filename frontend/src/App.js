@@ -196,21 +196,14 @@ class App extends Component {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-        <Loading loading={this.state.loading} />
         <div className='main'>
-        <Search handleSearch={this.handleSearch.bind(this)} 
-          onSearchLocation={this.updateSearchLocation.bind(this)}/>
+        <div className='header'> 
+          <div className='header-title'>Hello</div>
+          <Search handleSearch={this.handleSearch.bind(this)} 
+            onSearchLocation={this.updateSearchLocation.bind(this)}/>
+          <Loading loading={this.state.loading} />
+        </div>
         <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
-          <CreatePost createPost={this.createPost} />
-          <div className='cards'>
-            <Posts
-              posts={this.state.posts}
-              handleOnChange={this.handleOnChange}
-              deletePost={this.deletePost}
-              editPost={this.editPost}
-              likePost={this.likePost}
-            />
-          </div>
         </div>
         </div>
     )

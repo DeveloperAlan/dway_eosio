@@ -38,8 +38,8 @@ class MapComponent extends React.Component {
 
   render = () => {
     return (
-      <div className='header-maps'> 
-        {this.props.isMapShown ? 
+      <div className='header-maps'>
+        {this.props.isMapShown ?
         <Maps className="maps"
           isMarkerShown={this.state.isMarkerShown}
           onMarkerClick={this.handleMarkerClick}

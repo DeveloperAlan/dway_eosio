@@ -160,7 +160,7 @@ class App extends Component {
       this.setState({isMapShown: false})
     } else {
       this.setState({isMapShown: true})
-      //return address into payload 
+      //return address into payload
       //return into the map page.
       return './map';
     }
@@ -192,26 +192,24 @@ class App extends Component {
     // latlngBounds(origin, this.state.currentLocation.geometry.location)
   }
 
-  addLoading
-
   render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
         <div className='main'>
-        <div className='header'> 
+        <div className='header'>
           <div className='header-title'>Let's start your journey.</div>
-          <Search handleSearch={this.handleSearch.bind(this)} 
+          <Search handleSearch={this.handleSearch.bind(this)}
             onSearchLocation={this.updateSearchLocation.bind(this)}/>
             {/* not sure to keep this loading on here?? */}
           <Loading loading={this.state.loading} />
         </div>
-        <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
+        <MapComponent isMarkerShown={false} directions={this.state.directions}isMapShown={this.state.isMapShown}/>
         </div>
       </div>
     )
   }
-  
+
 }
 
 App.displayName = 'App' // Tell React Dev Tools the component name

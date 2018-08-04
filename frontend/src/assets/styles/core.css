@@ -223,6 +223,12 @@ button, .btn, submit {
   grid-area: main;
   background: #EEF2F9; }
 
+.layoutStandard .full-grid {
+  position:relative;
+  height: 100vh;
+  width: 100vh;
+}
+
 .lgcards {
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   grid-gap: 30px;
@@ -320,3 +326,10 @@ button, .btn, submit {
   grid-template-columns: auto auto auto;
   grid-gap: 0px;
   padding: 1.5rem 2rem; }
+
+.wrapper > div {
+  height: 100%;
+  width: 100%;
+}
+
+

@@ -1,6 +1,6 @@
 import React from "react"
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer} from "react-google-maps"
 
 const Maps = compose(
   withProps({
@@ -16,29 +16,23 @@ const Maps = compose(
     defaultZoom={8}
     defaultCenter={{ lat: -34.397, lng: 150.644 }}
   >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
+  {props.directions && <DirectionsRenderer directions={props.directions} />}
   </GoogleMap>
 )
 
-class MapComponent extends React.PureComponent {
+class MapComponent extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   state = {
     isMarkerShown: false,
   }
 
   componentDidMount() {
-    // const DirectionsService = new google.maps.DirectionsService();
-    this.delayedShowMarker()
-  }
-
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3000)
   }
 
   handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
   }
 
 
@@ -48,6 +42,7 @@ class MapComponent extends React.PureComponent {
       <Maps
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
+        directions={this.props.directions}
       />
     )
   }

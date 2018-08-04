@@ -9,7 +9,7 @@ import Posts from './Posts/Posts'
 import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
 import SearchInput, {createFilter} from 'react-search-input'
-import { getDirections, geocode } from './utils/google-api'
+import { getDirections, geocode, latlngBounds } from './utils/google-api'
 
 class App extends Component {
 
@@ -22,8 +22,10 @@ class App extends Component {
     this.state = {
       createOpen: false,
       posts: [],
-      currentLocation: "",
-      destinationLatLng: {}
+      currentLocation: {},
+      searchedLocation: "",
+      destinationLatLng: {},
+      directions: {}
     }
   }
 
@@ -137,33 +139,43 @@ class App extends Component {
     console.log(location.formatted_address)
     console.log(location.geometry.location)
     this.setState({
-      currentLocation: location.formatted_address,
+      currentLocation: location,
+      searchedLocation: location.formatted_address,
       destinationLatLng: location.geometry.location
     });
 
     let origin = {}
     if (navigator.geolocation) {
-      function geoSuccess(position) {
-        origin = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-
-        let directionsResponse = getDirections({
-          origin: origin,
-          destination: location.geometry.location
-        })
-      }
-      navigator.geolocation.getCurrentPosition(geoSuccess, null)
+      navigator.geolocation.getCurrentPosition(this.geoSuccess, null)
     }
   }
 
+  geoSuccess = async (position)  =>{
+    let origin = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    }
+
+    let directionsResponse = await getDirections({
+      origin: origin,
+      destination: this.state.currentLocation.geometry.location
+    })
+
+    console.log(JSON.stringify(directionsResponse))
+    // debugger
+    this.setState({directions: directionsResponse})
+    // debugger
+    // latlngBounds(origin, this.state.currentLocation.geometry.location)
+  }
+
   render () {
+    // var test =
+
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
         <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent isMarkerShown={false}/>
+        <MapComponent isMarkerShown={false} directions={this.state.directions}/>
         <div className='main'>
           <div className='toggleCreate' onClick={this.toggleCreate} />
           <CreatePost createPost={this.createPost} />

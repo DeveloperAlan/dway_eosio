@@ -1,0 +1,4 @@
++ eslint@5.3.0
+updated 1 package and audited 17248 packages in 12.043s
+found 8 vulnerabilities (4 moderate, 4 high)
+  run `npm audit fix` to fix them, or `npm audit` for details

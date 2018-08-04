@@ -8,6 +8,7 @@ import CreatePost from './CreatePost/CreatePost'
 import Posts from './Posts/Posts'
 import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
+import Loading from './ui/loading/Loading.js'
 import SearchInput, {createFilter} from 'react-search-input'
 import { getDirections, geocode, directionApiConversion } from './utils/google-api'
 
@@ -25,7 +26,8 @@ class App extends Component {
       currentLocation: {},
       searchedLocation: "",
       destinationLatLng: {},
-      directions: {}
+      directions: {},
+      loading: false
     }
   }
 
@@ -141,7 +143,8 @@ class App extends Component {
     this.setState({
       currentLocation: location,
       searchedLocation: location.formatted_address,
-      destinationLatLng: location.geometry.location
+      destinationLatLng: location.geometry.location,
+      loading: true
     });
 
     let origin = {}
@@ -150,7 +153,7 @@ class App extends Component {
     }
   }
 
-  geoSuccess = async (position)  =>{
+  geoSuccess = async (position)  => {
     let origin = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
@@ -168,11 +171,15 @@ class App extends Component {
     // debugger
     this.setState({directions: directionApiConversion(directionsResponse, {
       origin: origin,
-      destination: this.state.currentLocation.geometry.location
+      destination: this.state.currentLocation.geometry.location,
+
     })})
+    this.setState({loading: false})
     // debugger
     // latlngBounds(origin, this.state.currentLocation.geometry.location)
   }
+
+  addLoading
 
   render () {
 
@@ -181,6 +188,8 @@ class App extends Component {
         <div className='logo'>DWAY</div>
         <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false} directions={this.state.directions}/>
+        <Loading loading={this.state.loading} />
+
         <div className='main'>
           <div className='toggleCreate' onClick={this.toggleCreate} />
           <CreatePost createPost={this.createPost} />

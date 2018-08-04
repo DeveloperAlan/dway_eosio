@@ -113,11 +113,11 @@ class App extends Component {
               onChange={this.handleOnChange}
               placeholder='Transport mode'
             />
-            <button
-              onClick={this.createPost}
-              type='submit'
-              className='margin-right-15'
-            >Create Post</button>
+            <div className='btn-width-150'> 
+              <div className='btn-width-150' onClick={this.createPost} type='submit'className='margin-right-15'>
+                Create Post
+              </div>
+            </div>
           </div>
         </div>
           <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>

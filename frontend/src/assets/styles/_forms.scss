@@ -34,3 +34,24 @@ button, .btn, submit {
     color: #5fb7d8;
   }
 }
+
+button, .btn-width-150, submit {
+  border: none;
+  width: 150px;
+  background: #141C47;
+  border-radius: .3rem;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg,#5fe2dc 0%,#0d5de4 100%);
+  &:hover {
+    background: linear-gradient(135deg,#0d5de4 0%,#5fe2dc 100%);
+  }
+  &.secondary {
+    background: transparent;
+    padding: .9rem 1.4rem;
+    border: 2px solid transparent;
+    color: #5fb7d8;
+  }
+}

@@ -203,6 +203,7 @@ class App extends Component {
           <div className='header-title'>Let's start your journey.</div>
           <Search handleSearch={this.handleSearch.bind(this)} 
             onSearchLocation={this.updateSearchLocation.bind(this)}/>
+            {/* not sure to keep this loading on here?? */}
           <Loading loading={this.state.loading} />
         </div>
         <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>

@@ -1,0 +1,26 @@
+[
+    {
+        "timestamp": 1532704418,
+        "user_id": "user1",
+        "name": "user1name",
+        "loc_long": 33.8688,
+        "loc_lat": 151.2093,
+        "loc_time": 1532704418,
+        "device": "device1",
+        "sustainability": 10,
+        "travel": 12,
+        "on_bus": true
+    },
+    {
+        "timestamp": 1532704418,
+        "user_id": "user2",
+        "name": "user2name",
+        "loc_long": 33.8688,
+        "loc_lat": 151.2093,
+        "loc_time": 1532704418,
+        "device": "device2",
+        "sustainability": 11,
+        "travel": 9,
+        "on_bus": false
+    }
+]

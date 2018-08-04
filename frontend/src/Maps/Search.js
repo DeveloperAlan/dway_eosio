@@ -33,7 +33,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
+            <div className='lgcards'>
                 <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
                 {
                     this.state.searchResults.map(result => {

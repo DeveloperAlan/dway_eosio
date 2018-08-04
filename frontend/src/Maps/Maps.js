@@ -45,10 +45,12 @@ class MapComponent extends React.PureComponent {
 
   render() {
     return (
-      <Maps
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
-      />
+      <div className='lgcards'> 
+        <Maps
+          isMarkerShown={this.state.isMarkerShown}
+          onMarkerClick={this.handleMarkerClick}
+        />
+      </div>
     )
   }
 }

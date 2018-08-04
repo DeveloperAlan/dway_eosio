@@ -164,8 +164,8 @@ class App extends Component {
         <div className='logo'>DWAY</div>
         <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false}/>
+        {/* <div className='toggleCreate' onClick={this.toggleCreate} /> */}
         <div className='main'>
-          <div className='toggleCreate' onClick={this.toggleCreate} />
           <CreatePost createPost={this.createPost} />
           <div className='cards'>
             <Posts

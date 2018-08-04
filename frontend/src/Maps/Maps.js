@@ -39,11 +39,13 @@ class MapComponent extends React.Component {
 
   render() {
     return (
-      <Maps
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
-        directions={this.props.directions}
-      />
+      <div className='lgcards'>
+        <Maps
+          isMarkerShown={this.state.isMarkerShown}
+          onMarkerClick={this.handleMarkerClick}
+          directions={this.props.directions}
+        />
+      </div>
     )
   }
 }

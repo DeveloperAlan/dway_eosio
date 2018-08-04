@@ -1,0 +1,4 @@
++ eslint@5.3.0
+added 21 packages from 20 contributors, updated 1 package, moved 1 package and audited 17245 packages in 15.13s
+found 8 vulnerabilities (4 moderate, 4 high)
+  run `npm audit fix` to fix them, or `npm audit` for details

@@ -189,9 +189,7 @@ class App extends Component {
         <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false} directions={this.state.directions}/>
         <Loading loading={this.state.loading} />
-
         <div className='main'>
-          <div className='toggleCreate' onClick={this.toggleCreate} />
           <CreatePost createPost={this.createPost} />
           <div className='cards'>
             <Posts

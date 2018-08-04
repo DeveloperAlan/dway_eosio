@@ -27,7 +27,7 @@ class App extends Component {
       searchedLocation: "",
       destinationLatLng: {},
       directions: {},
-      loading: false
+      loading: false,
       isMapShown: false
     }
   }
@@ -203,13 +203,9 @@ class App extends Component {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-        <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent isMarkerShown={false} directions={this.state.directions}/>
-        <Loading loading={this.state.loading} />
-
-        <div className='main'>
         <Search handleSearch={this.handleSearch.bind(this)} onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
+        <MapComponent isMarkerShown={false} directions={this.state.directions} isMapShown={this.state.isMapShown}/>
+        <Loading loading={this.state.loading} />
           <CreatePost createPost={this.createPost} />
           <div className='cards'>
             <Posts
@@ -220,7 +216,6 @@ class App extends Component {
               likePost={this.likePost}
             />
           </div>
-        </div>
         </div>
     )
   }

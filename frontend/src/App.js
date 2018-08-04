@@ -6,6 +6,7 @@ import IOClient from './utils/io-client'
 import { updatePostsForCreateAndEdit, updatePostsForLike, updatePostsForDelete } from './utils/posts-updater'
 import CreatePost from './CreatePost/CreatePost'
 import Posts from './Posts/Posts'
+import Maps from './Maps/Maps'
 
 class App extends Component {
   state = {
@@ -129,7 +130,8 @@ class App extends Component {
   render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
-        <div className='logo'>Hackathon Starter</div>
+        <div className='logo'>DWAY</div>
+        <Maps isMarkerShown={false}/>
         <div className='main'>
           <div className='toggleCreate' onClick={this.toggleCreate} />
           <CreatePost createPost={this.createPost} />

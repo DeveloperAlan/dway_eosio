@@ -8,8 +8,9 @@ import CreatePost from './CreatePost/CreatePost'
 import Posts from './Posts/Posts'
 import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
+import Loading from './ui/loading/Loading.js'
 import SearchInput, {createFilter} from 'react-search-input'
-import { getDirections, geocode } from './utils/google-api'
+import { getDirections, geocode, directionApiConversion } from './utils/google-api'
 
 class App extends Component {
 
@@ -22,9 +23,17 @@ class App extends Component {
     this.state = {
       createOpen: false,
       posts: [],
+<<<<<<< HEAD
       currentLocation: "",
       destinationLatLng: {},
       isMapShown: false
+=======
+      currentLocation: {},
+      searchedLocation: "",
+      destinationLatLng: {},
+      directions: {},
+      loading: false
+>>>>>>> master
     }
   }
 
@@ -140,27 +149,54 @@ class App extends Component {
     console.log(location.formatted_address)
     console.log(location.geometry.location)
     this.setState({
-      currentLocation: location.formatted_address,
-      destinationLatLng: location.geometry.location
+      currentLocation: location,
+      searchedLocation: location.formatted_address,
+      destinationLatLng: location.geometry.location,
+      loading: true
     });
 
     let origin = {}
     if (navigator.geolocation) {
-      function geoSuccess(position) {
-        origin = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
+      navigator.geolocation.getCurrentPosition(this.geoSuccess, null)
+    }
+  }
 
+<<<<<<< HEAD
         let directionsResponse = getDirections({
           origin: origin,
           destination: location.geometry.location
         })
       navigator.geolocation.getCurrentPosition(geoSuccess, null)
       }
+=======
+  geoSuccess = async (position)  => {
+    let origin = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+>>>>>>> master
     }
+
+    let directionsResponse = await getDirections({
+      origin: origin,
+      destination: this.state.currentLocation.geometry.location
+    })
+
+    // console.log(JSON.stringify(directionApiConversion(directionsResponse, {
+    //   origin: origin,
+    //   destination: this.state.currentLocation.geometry.location
+    // })))
+    // debugger
+    this.setState({directions: directionApiConversion(directionsResponse, {
+      origin: origin,
+      destination: this.state.currentLocation.geometry.location,
+
+    })})
+    this.setState({loading: false})
+    // debugger
+    // latlngBounds(origin, this.state.currentLocation.geometry.location)
   }
 
+<<<<<<< HEAD
   handleSearch(event, target) {
       console.log("click")
       if (this.state.isMapShown) {
@@ -175,11 +211,21 @@ class App extends Component {
   // home page 
   // then redirect to map
   // add particles in home page for extra aesthetic. 
+=======
+  addLoading
+>>>>>>> master
 
   render () {
+
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
+<<<<<<< HEAD
+=======
+        <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
+        <MapComponent isMarkerShown={false} directions={this.state.directions}/>
+        <Loading loading={this.state.loading} />
+>>>>>>> master
         <div className='main'>
         <Search handleSearch={this.handleSearch.bind(this)} onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>

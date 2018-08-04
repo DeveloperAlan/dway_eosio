@@ -3,6 +3,7 @@ const {
 } = require('demux-js')
 const mongoose = require('mongoose')
 const Post = require('../api/post/post.model')
+const Score = require('../api/score/score.model')
 const BlockIndexState = require('../api/block-index-state/block-index-state.model')
 const io = require('../utils/io')
 
@@ -36,7 +37,7 @@ class ActionHandler extends AbstractActionHandler {
 
   async handleWithState (handle) {
     const context = { socket: io.getSocket() }
-    const state = { post: Post, blockIndexState: BlockIndexState }
+    const state = { post: Post, score: Score, blockIndexState: BlockIndexState }
     try {
       await handle(state, context)
     } catch (err) {

@@ -2,13 +2,22 @@
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     grid-gap: 30px;
     padding: 250px 20px 250px 20px;
-
+    height: 100vh;
   }
 
   .header-title {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 100px;
       padding-left: 30px;
+      margin: 0 auto;
+    }
+
+    .header-maps {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        grid-gap: 30px;
+        padding: 250px 20px 250px 20px;
+        height: 100%;
+        background-color: #6b808f;
     }
   
   

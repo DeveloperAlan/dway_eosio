@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import SearchInput, {createFilter} from 'react-search-input'
 import SearchResult from './SearchResult'
-import { searchLocation } from '../utils/searchLocation'
+import { searchLocation } from '../utils/google-api'
 
 class Search extends Component {
     constructor(props) {
@@ -26,8 +26,9 @@ class Search extends Component {
         }
     }
 
-    onResultClick(address) {
-        console.log(address);
+    onResultClick(result) {
+        console.log(result);
+        this.props.onSearchLocation(result)
     }
 
     render() {
@@ -38,7 +39,7 @@ class Search extends Component {
                     this.state.searchResults.map(result => {
                     console.log(result.formatted_address);
                     return (
-                        <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result.formatted_address)}/>
+                        <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result)}/>
                     )
                 })}
             </div>

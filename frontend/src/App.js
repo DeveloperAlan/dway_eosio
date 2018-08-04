@@ -6,16 +6,12 @@ import IOClient from './utils/io-client'
 import { updatePostsForCreateAndEdit, updatePostsForLike, updatePostsForDelete } from './utils/posts-updater'
 import CreatePost from './CreatePost/CreatePost'
 import Posts from './Posts/Posts'
-import Maps from './Maps/Maps'
+import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
 import SearchInput, {createFilter} from 'react-search-input'
-import { searchLocation } from './utils/searchLocation'
+import { getDirections, geocode } from './utils/google-api'
 
 class App extends Component {
-  state = {
-    createOpen: false,
-    posts: []
-  }
 
   // Instantiate shared eosjs helper and socket io helper
   constructor (props) {
@@ -23,6 +19,12 @@ class App extends Component {
     const contractAccount = process.env.REACT_APP_EOSIO_CONTRACT_ACCOUNT
     this.eosio = new EOSIOClient(contractAccount)
     this.io = new IOClient()
+    this.state = {
+      createOpen: false,
+      posts: [],
+      currentLocation: "",
+      destinationLatLng: {}
+    }
   }
 
   // Enable Realtime updates via Socket.io
@@ -130,18 +132,38 @@ class App extends Component {
     }))
   }
 
-  searchUpdated(term) {
-    const location = searchLocation(term);
-    console.log(location);
-    this.setState({searchTerm: term})
+  updateSearchLocation = async (location) => {
+    console.log(location)
+    console.log(location.formatted_address)
+    console.log(location.geometry.location)
+    this.setState({
+      currentLocation: location.formatted_address,
+      destinationLatLng: location.geometry.location
+    });
+
+    let origin = {}
+    if (navigator.geolocation) {
+      function geoSuccess(position) {
+        origin = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+
+        let directionsResponse = getDirections({
+          origin: origin,
+          destination: location.geometry.location
+        })
+      }
+      navigator.geolocation.getCurrentPosition(geoSuccess, null)
+    }
   }
 
   render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-        <Search />
-        <Maps isMarkerShown={false}/>
+        <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
+        <MapComponent isMarkerShown={false}/>
         <div className='main'>
           <div className='toggleCreate' onClick={this.toggleCreate} />
           <CreatePost createPost={this.createPost} />

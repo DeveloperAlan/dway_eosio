@@ -20,12 +20,13 @@ const Maps = compose(
   </GoogleMap>
 )
 
-class MyFancyComponent extends React.PureComponent {
+class MapComponent extends React.PureComponent {
   state = {
     isMarkerShown: false,
   }
 
   componentDidMount() {
+    // const DirectionsService = new google.maps.DirectionsService();
     this.delayedShowMarker()
   }
 
@@ -40,6 +41,8 @@ class MyFancyComponent extends React.PureComponent {
     this.delayedShowMarker()
   }
 
+
+
   render() {
     return (
       <Maps
@@ -50,4 +53,4 @@ class MyFancyComponent extends React.PureComponent {
   }
 }
 
-export default Maps
+export default MapComponent

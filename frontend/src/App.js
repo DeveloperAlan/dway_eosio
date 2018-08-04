@@ -23,17 +23,11 @@ class App extends Component {
     this.state = {
       createOpen: false,
       posts: [],
-<<<<<<< HEAD
-      currentLocation: "",
-      destinationLatLng: {},
-      isMapShown: false
-=======
       currentLocation: {},
       searchedLocation: "",
       destinationLatLng: {},
       directions: {},
       loading: false
->>>>>>> master
     }
   }
 
@@ -161,19 +155,10 @@ class App extends Component {
     }
   }
 
-<<<<<<< HEAD
-        let directionsResponse = getDirections({
-          origin: origin,
-          destination: location.geometry.location
-        })
-      navigator.geolocation.getCurrentPosition(geoSuccess, null)
-      }
-=======
   geoSuccess = async (position)  => {
     let origin = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
->>>>>>> master
     }
 
     let directionsResponse = await getDirections({
@@ -196,36 +181,16 @@ class App extends Component {
     // latlngBounds(origin, this.state.currentLocation.geometry.location)
   }
 
-<<<<<<< HEAD
-  handleSearch(event, target) {
-      console.log("click")
-      if (this.state.isMapShown) {
-        console.log("click2")
-        this.setState({isMapShown: false})
-      } else {
-        console.log("click3")
-        this.setState({isMapShown: true})
-      }
-  }
-
-  // home page 
-  // then redirect to map
-  // add particles in home page for extra aesthetic. 
-=======
   addLoading
->>>>>>> master
 
   render () {
 
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-<<<<<<< HEAD
-=======
         <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false} directions={this.state.directions}/>
         <Loading loading={this.state.loading} />
->>>>>>> master
         <div className='main'>
         <Search handleSearch={this.handleSearch.bind(this)} onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>

@@ -32,6 +32,7 @@ class App extends Component {
     }
   }
 
+
   // Enable Realtime updates via Socket.io
   async componentDidMount () {
     this.loadPosts()
@@ -198,7 +199,7 @@ class App extends Component {
         <div className='logo'>DWAY</div>
         <div className='main'>
         <div className='header'> 
-          <div className='header-title'>Hello</div>
+          <div className='header-title'>Let's start your journey.</div>
           <Search handleSearch={this.handleSearch.bind(this)} 
             onSearchLocation={this.updateSearchLocation.bind(this)}/>
           <Loading loading={this.state.loading} />

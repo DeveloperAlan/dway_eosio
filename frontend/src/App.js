@@ -27,7 +27,8 @@ class App extends Component {
       searchedLocation: "",
       destinationLatLng: {},
       directions: {},
-      loading: false
+      loading: false,
+      isMapShown: false
     }
   }
 
@@ -155,6 +156,14 @@ class App extends Component {
     }
   }
 
+  handleSearch(event, target) {
+    if (this.state.isMapShown) {
+      this.setState({isMapShown: false})
+    } else {
+      this.setState({isMapShown: true})
+    }
+}
+
   geoSuccess = async (position)  => {
     let origin = {
       lat: position.coords.latitude,
@@ -184,15 +193,13 @@ class App extends Component {
   addLoading
 
   render () {
-
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-        <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent isMarkerShown={false} directions={this.state.directions}/>
         <Loading loading={this.state.loading} />
         <div className='main'>
-        <Search handleSearch={this.handleSearch.bind(this)} onSearchLocation={this.updateSearchLocation.bind(this)}/>
+        <Search handleSearch={this.handleSearch.bind(this)} 
+          onSearchLocation={this.updateSearchLocation.bind(this)}/>
         <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
           <CreatePost createPost={this.createPost} />
           <div className='cards'>

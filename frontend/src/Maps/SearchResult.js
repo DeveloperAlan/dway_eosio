@@ -7,7 +7,9 @@ class SearchResult extends Component {
 
     render() {
         return (
-            <div onClick={this.props.onClick} className="address">{this.props.address}</div>
+            <div onClick={this.props.onClick} className="address">
+                {this.props.address}
+            </div>
         )
     }
 }

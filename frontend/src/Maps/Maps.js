@@ -27,6 +27,7 @@ class MapComponent extends React.Component {
 
   state = {
     isMarkerShown: false,
+    isMapShown: false
   }
 
   componentDidMount() {
@@ -35,16 +36,16 @@ class MapComponent extends React.Component {
   handleMarkerClick = () => {
   }
 
-
-
-  render() {
+  render = () => {
     return (
       <div className='lgcards'>
-        <Maps
+        {this.props.isMapShown ?
+        <Maps className="maps"
           isMarkerShown={this.state.isMarkerShown}
           onMarkerClick={this.handleMarkerClick}
           directions={this.props.directions}
         />
+        : null }
       </div>
     )
   }

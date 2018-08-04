@@ -29,19 +29,21 @@ class Search extends Component {
     onResultClick(result) {
         console.log(result);
         this.props.onSearchLocation(result)
-    }
+    }    
 
     render() {
         return (
             <div className='lgcards'>
-                <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
-                {
-                    this.state.searchResults.map(result => {
-                    console.log(result.formatted_address);
-                    return (
-                        <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result)}/>
-                    )
-                })}
+                    <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)}/> 
+                    {
+                        this.state.searchResults.map(result => {
+                        console.log(result.formatted_address);
+                            return (
+                                <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result)}/>
+                            )
+                        }) 
+                    }
+                    <button onClick={this.props.handleSearch}>Search</button>
             </div>
         )
     }

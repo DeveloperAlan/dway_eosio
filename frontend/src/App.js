@@ -5,7 +5,8 @@ import EOSIOClient from './utils/eosio-client'
 import IOClient from './utils/io-client'
 import { updatePostsForCreateAndEdit, updatePostsForLike, updatePostsForDelete } from './utils/posts-updater'
 import CreatePost from './CreatePost/CreatePost'
-import Posts from './Posts/Posts'
+// import Posts from './Posts/Posts'
+import Scores from './Scores/Scores'
 import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
 import Loading from './ui/loading/Loading.js'
@@ -32,30 +33,30 @@ class App extends Component {
   }
 
   // Enable Realtime updates via Socket.io
-  async componentDidMount () {
-    this.loadPosts()
-    this.io.onMessage('createpost', (post) => {
-      this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, post) }))
-    })
-    this.io.onMessage('editpost', (post) => {
-      this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, post) }))
-    })
-    this.io.onMessage('deletepost', (post) => {
-      this.setState((prevState) => ({ posts: updatePostsForDelete(prevState, post) }))
-    })
-  }
+  // async componentDidMount () {
+  //   this.loadPosts()
+  //   this.io.onMessage('createpost', (post) => {
+  //     this.setState((prevState) => ({ scores: updatePostsForCreateAndEdit(prevState, post) }))
+  //   })
+  //   this.io.onMessage('editpost', (post) => {
+  //     this.setState((prevState) => ({ scores: updatePostsForCreateAndEdit(prevState, post) }))
+  //   })
+  //   this.io.onMessage('deletepost', (post) => {
+  //     this.setState((prevState) => ({ scores: updatePostsForDelete(prevState, post) }))
+  //   })
+  // }
 
   // Load posts
-  loadPosts = async () => {
+  loadScore = async () => {
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`)
-    this.setState({ posts: response.data.reverse() })
+    this.setState({ scores: response.data.reverse() })
   }
 
-  // Create a post
-  createPost = async (post) => {
+  // Create a score
+  createScore = async (score) => {
     try {
-      const newPost = {
-        ...post,
+      const newScore = {
+        ...score,
         _id: {
           timestamp: Math.floor(Date.now() / 1000),
           author: process.env.REACT_APP_EOSIO_ACCOUNT
@@ -65,69 +66,103 @@ class App extends Component {
 
       await this.eosio.transaction(
         process.env.REACT_APP_EOSIO_ACCOUNT,
-        'createpost', {
-          timestamp: newPost._id.timestamp,
-          author: newPost._id.author,
-          ...post
+        'createscore', {
+          timestamp: newScore._id.timestamp,
+          author: newScore._id.author,
+          ...score
         }
       )
-      this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, newPost) }))
+      // fix this
+      // this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, newPost) }))
       this.toggleCreate()
     } catch (err) {
       console.error(err)
     }
   }
 
-  // Edit a post
-  editPost = async (post) => {
-    try {
-      await this.eosio.transaction(
-        process.env.REACT_APP_EOSIO_ACCOUNT,
-        'editpost',
-        {
-          timestamp: post._id.timestamp,
-          author: post._id.author,
-          ...post
-        }
-      )
-      this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, post) }))
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  // // Load posts
+  // loadPosts = async () => {
+  //   const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`)
+  //   this.setState({ posts: response.data.reverse() })
+  // }
 
-  // Delete a post
-  deletePost = async (post) => {
-    try {
-      await this.eosio.transaction(
-        process.env.REACT_APP_EOSIO_ACCOUNT,
-        'deletepost',
-        {
-          timestamp: post._id.timestamp,
-          author: post._id.author
-        }
-      )
-      this.setState((prevState) => ({ posts: updatePostsForDelete(prevState, post) }))
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  // // Create a post
+  // createPost = async (post) => {
+  //   try {
+  //     const newPost = {
+  //       ...post,
+  //       _id: {
+  //         timestamp: Math.floor(Date.now() / 1000),
+  //         author: process.env.REACT_APP_EOSIO_ACCOUNT
+  //       },
+  //       author: process.env.REACT_APP_EOSIO_ACCOUNT
+  //     }
 
-  // Like a post
-  likePost = async (post) => {
-    try {
-      await this.eosio.transaction(
-        process.env.REACT_APP_EOSIO_ACCOUNT,
-        'likepost', {
-          timestamp: post._id.timestamp,
-          author: post._id.author
-        }
-      )
-      this.setState((prevState) => ({ posts: updatePostsForLike(prevState, post) }))
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  //     await this.eosio.transaction(
+  //       process.env.REACT_APP_EOSIO_ACCOUNT,
+  //       'createpost', {
+  //         timestamp: newPost._id.timestamp,
+  //         author: newPost._id.author,
+  //         ...post
+  //       }
+  //     )
+  //     this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, newPost) }))
+  //     this.toggleCreate()
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+
+  // // Edit a post
+  // editPost = async (post) => {
+  //   try {
+  //     await this.eosio.transaction(
+  //       process.env.REACT_APP_EOSIO_ACCOUNT,
+  //       'editpost',
+  //       {
+  //         timestamp: post._id.timestamp,
+  //         author: post._id.author,
+  //         ...post
+  //       }
+  //     )
+  //     this.setState((prevState) => ({ posts: updatePostsForCreateAndEdit(prevState, post) }))
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+
+  // // Delete a post
+  // deletePost = async (post) => {
+  //   try {
+  //     await this.eosio.transaction(
+  //       process.env.REACT_APP_EOSIO_ACCOUNT,
+  //       'deletepost',
+  //       {
+  //         timestamp: post._id.timestamp,
+  //         author: post._id.author
+  //       }
+  //     )
+  //     this.setState((prevState) => ({ posts: updatePostsForDelete(prevState, post) }))
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+
+  // // Like a post
+  // likePost = async (post) => {
+  //   try {
+  //     await this.eosio.transaction(
+  //       process.env.REACT_APP_EOSIO_ACCOUNT,
+  //       'likepost', {
+  //         timestamp: post._id.timestamp,
+  //         author: post._id.author
+  //       }
+  //     )
+  //     this.setState((prevState) => ({ posts: updatePostsForLike(prevState, post) }))
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
 
   // Toggle if create window is open
   toggleCreate = () => {
@@ -192,12 +227,8 @@ class App extends Component {
         <div className='main'>
           <CreatePost createPost={this.createPost} />
           <div className='cards'>
-            <Posts
-              posts={this.state.posts}
-              handleOnChange={this.handleOnChange}
-              deletePost={this.deletePost}
-              editPost={this.editPost}
-              likePost={this.likePost}
+            <Scores
+              scores={this.state.scores}
             />
           </div>
         </div>

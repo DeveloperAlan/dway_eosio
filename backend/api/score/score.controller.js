@@ -1,4 +1,4 @@
-const Post = require('./score.model')
+const Score = require('./score.model')
 
 /**
  * Get list of all scores confirmed by the blockchain

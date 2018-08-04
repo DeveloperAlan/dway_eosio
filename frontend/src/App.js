@@ -7,6 +7,9 @@ import { updatePostsForCreateAndEdit, updatePostsForLike, updatePostsForDelete }
 import CreatePost from './CreatePost/CreatePost'
 import Posts from './Posts/Posts'
 import Maps from './Maps/Maps'
+import Search from './Maps/Search'
+import SearchInput, {createFilter} from 'react-search-input'
+import { searchLocation } from './utils/searchLocation'
 
 class App extends Component {
   state = {
@@ -127,10 +130,17 @@ class App extends Component {
     }))
   }
 
+  searchUpdated(term) {
+    const location = searchLocation(term);
+    console.log(location);
+    this.setState({searchTerm: term})
+  }
+
   render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
+        <Search />
         <Maps isMarkerShown={false}/>
         <div className='main'>
           <div className='toggleCreate' onClick={this.toggleCreate} />

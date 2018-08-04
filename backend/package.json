@@ -8,6 +8,7 @@
     "lint": "standard --fix --config .eslintrc | snazzy"
   },
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "cors": "^2.8.4",
     "demux-js": "0.0.1-docs",
     "dotenv": "^6.0.0",

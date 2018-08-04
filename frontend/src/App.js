@@ -23,7 +23,8 @@ class App extends Component {
       createOpen: false,
       posts: [],
       currentLocation: "",
-      destinationLatLng: {}
+      destinationLatLng: {},
+      isMapShown: false
     }
   }
 
@@ -40,6 +41,8 @@ class App extends Component {
       this.setState((prevState) => ({ posts: updatePostsForDelete(prevState, post) }))
     })
   }
+
+  
 
   // Load posts
   loadPosts = async () => {
@@ -153,19 +156,33 @@ class App extends Component {
           origin: origin,
           destination: location.geometry.location
         })
-      }
       navigator.geolocation.getCurrentPosition(geoSuccess, null)
+      }
     }
   }
+
+  handleSearch(event, target) {
+      console.log("click")
+      if (this.state.isMapShown) {
+        console.log("click2")
+        this.setState({isMapShown: false})
+      } else {
+        console.log("click3")
+        this.setState({isMapShown: true})
+      }
+  }
+
+  // home page 
+  // then redirect to map
+  // add particles in home page for extra aesthetic. 
 
   render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-        <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent isMarkerShown={false}/>
-        {/* <div className='toggleCreate' onClick={this.toggleCreate} /> */}
         <div className='main'>
+        <Search handleSearch={this.handleSearch.bind(this)} onSearchLocation={this.updateSearchLocation.bind(this)}/>
+        <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
           <CreatePost createPost={this.createPost} />
           <div className='cards'>
             <Posts
@@ -177,10 +194,12 @@ class App extends Component {
             />
           </div>
         </div>
-      </div>
+        </div>
     )
   }
+  
 }
+
 App.displayName = 'App' // Tell React Dev Tools the component name
 
 export default App

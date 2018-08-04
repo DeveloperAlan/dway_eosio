@@ -222,3 +222,101 @@ button, .btn, submit {
   min-height: 100vh;
   grid-area: main;
   background: #EEF2F9; }
+
+.lgcards {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-gap: 30px;
+  padding: 55px 30px; }
+
+@keyframes heart {
+  0% {
+    transform: scale(1) rotate(-45deg); }
+  35% {
+    transform: scale(1.4) rotate(-45deg); }
+  100% {
+    transform: scale(1) rotate(-45deg); } }
+
+.lgcards-item {
+  position: relative;
+  background: #ffffff;
+  box-shadow: 0px 3px 18px rgba(255, 255, 255, 0.09);
+  overflow: hidden; }
+  .lgcards-item p {
+    color: #6b808f; }
+  .lgcards-item img.center {
+    margin: 0 auto;
+    align-self: center;
+    justify-self: center; }
+  .lgcards-item .card-footer {
+    background: #f7fafc;
+    border-top: 1px solid #dde7f1;
+    border-bottom: 1px solid #dde7f1;
+    color: #b1bfc8; }
+  .lgcards-item .detailAvatar {
+    background: url(img/icons/avatar.svg); }
+  .lgcards-item .detailHeart {
+    background: url(img/icons/heart.svg); }
+  .lgcards-item .detailTag {
+    background: url(img/icons/tag.svg); }
+  .lgcards-item .detailAvatar, .lgcards-item .detailHeart, .lgcards-item .detailTag {
+    background-repeat: no-repeat;
+    background-position: left center;
+    width: auto;
+    height: 25px;
+    padding: 0px 0 0 34px; }
+  .lgcards-item .iconEdit {
+    background: url(img/icons/edit.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 25px;
+    cursor: pointer;
+    display: block; }
+  .lgcards-item .iconDelete {
+    background: url(img/icons/delete.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 25px;
+    cursor: pointer;
+    display: block; }
+  .lgcards-item .heart {
+    background-color: #D8DFE2;
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    margin: 0 5px;
+    transform: rotate(-45deg);
+    width: 15px;
+    position: absolute;
+    top: 30px;
+    right: 30px; }
+    .lgcards-item .heart:before, .lgcards-item .heart:after {
+      content: "";
+      background-color: #D8DFE2;
+      border-radius: 50%;
+      height: 15px;
+      position: absolute;
+      width: 15px; }
+    .lgcards-item .heart:before {
+      top: -7px;
+      left: 0; }
+    .lgcards-item .heart:after {
+      left: 7px;
+      top: 0; }
+  .lgcards-item.liked .heart {
+    animation-duration: .6s;
+    animation-name: heart;
+    background-color: #f35ee7; }
+    .lgcards-item.liked .heart:before, .lgcards-item.liked .heart:after {
+      background-color: #f35ee7; }
+
+.lggrid-2 {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 0px;
+  padding: 1.5rem 1rem; }
+
+.lggrid-3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 0px;
+  padding: 1.5rem 2rem; }

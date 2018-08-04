@@ -23,6 +23,7 @@ const Maps = compose(
 class MapComponent extends React.PureComponent {
   state = {
     isMarkerShown: false,
+    isMapShown: false
   }
 
   componentDidMount() {
@@ -41,15 +42,15 @@ class MapComponent extends React.PureComponent {
     this.delayedShowMarker()
   }
 
-
-
-  render() {
+  render = () => {
     return (
       <div className='lgcards'> 
-        <Maps
+        {this.props.isMapShown ? 
+        <Maps className="maps"
           isMarkerShown={this.state.isMarkerShown}
           onMarkerClick={this.handleMarkerClick}
         />
+        : null }
       </div>
     )
   }

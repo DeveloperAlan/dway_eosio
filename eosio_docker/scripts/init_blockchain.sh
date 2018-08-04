@@ -35,8 +35,7 @@ echo "=== setup wallet: blogwallet ==="
 # * Replace "blogwallet" with your own wallet name when you start your own project
 
 # create account for blogaccount with above wallet's public keys
-#./cleos create account eosio blogaccount EOS6PUh9rs7eddJNzqgqDx1QrspSHLRxLMcRdwHZZRL4tpbtvia5B EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9
-
+./cleos create account eosio blogaccount EOS6PUh9rs7eddJNzqgqDx1QrspSHLRxLMcRdwHZZRL4tpbtvia5B EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9
 ./cleos create account eosio scoreaccount EOS6PUh9rs7eddJNzqgqDx1QrspSHLRxLMcRdwHZZRL4tpbtvia5B EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9
 
 
@@ -47,7 +46,7 @@ echo "=== deploy smart contract ==="
 # $2 account holder name of the smart contract
 # $3 wallet that holds the keys for the account
 # $4 password for unlocking the wallet
-#./scripts/deploy_contract.sh blog blogaccount blogwallet $(cat blog_wallet_password.txt)
+./scripts/deploy_contract.sh blog blogaccount blogwallet $(cat blog_wallet_password.txt)
 ./scripts/deploy_contract.sh score scoreaccount blogwallet $(cat blog_wallet_password.txt)
 
 echo "=== create user accounts ==="
@@ -56,7 +55,7 @@ echo "=== create user accounts ==="
 
 echo "=== create mock data for contract ==="
 # script for calling actions on the smart contract to create mock data
-#./scripts/create_mock_data.sh
+./scripts/create_mock_data.sh
 ./scripts/create_mock_score.sh
 
 # * Replace the script with different form of data that you would pushed into the blockchain when you start your own project

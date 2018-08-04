@@ -9,7 +9,7 @@ import Posts from './Posts/Posts'
 import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
 import SearchInput, {createFilter} from 'react-search-input'
-import { getDirections, geocode, latlngBounds } from './utils/google-api'
+import { getDirections, geocode, directionApiConversion } from './utils/google-api'
 
 class App extends Component {
 
@@ -161,15 +161,164 @@ class App extends Component {
       destination: this.state.currentLocation.geometry.location
     })
 
-    console.log(JSON.stringify(directionsResponse))
+    // console.log(JSON.stringify(directionApiConversion(directionsResponse, {
+    //   origin: origin,
+    //   destination: this.state.currentLocation.geometry.location
+    // })))
     // debugger
-    this.setState({directions: directionsResponse})
+    this.setState({directions: directionApiConversion(directionsResponse, {
+      origin: origin,
+      destination: this.state.currentLocation.geometry.location
+    })})
     // debugger
     // latlngBounds(origin, this.state.currentLocation.geometry.location)
   }
 
   render () {
-    // var test =
+//     var test = {
+//   "geocoded_waypoints": [
+//     {
+//       "geocoder_status": "OK",
+//       "place_id": "EigyMzk5IFMgTW9yZ2FuIFN0LCBDaGljYWdvLCBJTCA2MDYwOCwgVVNB",
+//       "types": [
+//         "street_address"
+//       ]
+//     },
+//     {
+//       "geocoder_status": "OK",
+//       "place_id": "EigxMDAxIFcgQ2VybWFrIFJkLCBDaGljYWdvLCBJTCA2MDYwOCwgVVNB",
+//       "types": [
+//         "street_address"
+//       ]
+//     }
+//   ],
+//   "request": {
+//     "destination": {
+//       "lat": 41.85258,
+//       "lng": -87.65141
+//     },
+//     "origin": {
+//       "lat": 41.85073,
+//       "lng": -87.65125999999998
+//     },
+//     "travelMode": "DRIVING"
+//   },
+//   "routes": [
+//     {
+//       "bounds": {
+//         "east": -87.65126000000001,
+//         "north": 41.85257,
+//         "south": 41.85076,
+//         "west": -87.65141000000001
+//       },
+//       "copyrights": "Map data ©2017 Google",
+//       "legs": [
+//         {
+//           "distance": {
+//             "text": "0.1 mi",
+//             "value": 203
+//           },
+//           "duration": {
+//             "text": "1 min",
+//             "value": 76
+//           },
+//           "end_address": "1001 W Cermak Rd, Chicago, IL 60608, USA",
+//           "end_location": {
+//             "lat": 41.8525704,
+//             "lng": -87.65140550000001
+//           },
+//           "start_address": "2399 S Morgan St, Chicago, IL 60608, USA",
+//           "start_location": {
+//             "lat": 41.8507582,
+//             "lng": -87.6512578
+//           },
+//           "steps": [
+//             {
+//               "distance": {
+//                 "text": "0.1 mi",
+//                 "value": 203
+//               },
+//               "duration": {
+//                 "text": "1 min",
+//                 "value": 76
+//               },
+//               "end_location": {
+//                 "lat": 41.8525704,
+//                 "lng": -87.65140550000001
+//               },
+//               "end_point": {
+//                 "lat": 41.8525704,
+//                 "lng": -87.65140550000001
+//               },
+//               "instructions": "Head <b>north</b> on <b>S Morgan St</b> towards <b>W Cermak Rd</b>",
+//               "lat_lngs": [
+//                 {
+//                   "lat": 41.85076,
+//                   "lng": -87.65126000000001
+//                 },
+//                 {
+//                   "lat": 41.852250000000005,
+//                   "lng": -87.6513
+//                 },
+//                 {
+//                   "lat": 41.852360000000004,
+//                   "lng": -87.65131000000001
+//                 },
+//                 {
+//                   "lat": 41.85244,
+//                   "lng": -87.65133
+//                 },
+//                 {
+//                   "lat": 41.85257,
+//                   "lng": -87.65141000000001
+//                 }
+//               ],
+//               "maneuver": "",
+//               // "path": [
+//               //   {
+//               //     "lat": 41.85076,
+//               //     "lng": -87.65126000000001
+//               //   },
+//               //   {
+//               //     "lat": 41.852250000000005,
+//               //     "lng": -87.6513
+//               //   },
+//               //   {
+//               //     "lat": 41.852360000000004,
+//               //     "lng": -87.65131000000001
+//               //   },
+//               //   {
+//               //     "lat": 41.85244,
+//               //     "lng": -87.65133
+//               //   },
+//               //   {
+//               //     "lat": 41.85257,
+//               //     "lng": -87.65141000000001
+//               //   }
+//               // ],
+//               "start_location": {
+//                 "lat": 41.8507582,
+//                 "lng": -87.6512578
+//               },
+//               "start_point": {
+//                 "lat": 41.8507582,
+//                 "lng": -87.6512578
+//               },
+//               "travel_mode": "DRIVING"
+//             }
+//           ],
+//           "traffic_speed_entry": [],
+//           "via_waypoint": [],
+//           "via_waypoints": []
+//         }
+//       ],
+//       "summary": "S Morgan St",
+//       "warnings": [],
+//       "waypoint_order": []
+//     }
+//   ],
+//   "status": "OK"
+// }
 
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>

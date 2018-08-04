@@ -12,18 +12,6 @@ import Loading from './ui/loading/Loading.js'
 import SearchInput, {createFilter} from 'react-search-input'
 import { getDirections, geocode, directionApiConversion } from './utils/google-api'
 
-import {
- Collapse,
- Navbar,
- NavbarToggler,
- NavbarBrand,
- Nav,
- NavItem,
- NavLink,
- UncontrolledDropdown,
- DropdownToggle,
- DropdownMenu,
- DropdownItem } from 'reactstrap';
 
 class App extends Component {
 
@@ -41,7 +29,8 @@ class App extends Component {
      destinationLatLng: {},
      directions: {},
      loading: false,
-     isMapShown: true
+     isMapShown: true,
+     isJourneyCreated: false
    }
  }
  updateSearchLocation = async (location) => {
@@ -88,25 +77,51 @@ class App extends Component {
     // latlngBounds(origin, this.state.currentLocation.geometry.location)
  }
 
+ handleCardSwitch(event, target) {
+   if (this.state.isJourneyCreated)
+     this.setState({isJourneyCreated: false})
+   this.setState({isJourneyCreated: true})
+   // need to return data eventually.
+ }
+
  render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
-        <Navbar color='light' light expand='md'>
-          <NavbarBrand href='/'><span className='logo'>DWAY</span></NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className='ml-auto' navbar>
-              <NavItem>
-                <NavLink color='white' href='/'>Home Page</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href='/map'>Map</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-        <Search onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent className='full-grid' isMarkerShown={false} directions={this.state.directions} isMapShown={this.state.isMapShown}/>
+        <div className='logo'>DWAY</div>
+        <div className='main'>
+        <div className='container padding-30'>
+          <div className='card-item padding-30'>
+            <input
+              className='margin-bottom-15'
+              name='title'
+              value={this.state.title}
+              onChange={this.handleOnChange}
+              placeholder='Travelling from'
+            />
+            <textarea
+              className='margin-bottom-15'
+              name='content'
+              value={this.state.content}
+              onChange={this.handleOnChange}
+              rows={4}
+              placeholder='Travelling to'
+            />
+            <input
+              className='margin-bottom-15'
+              name='tag'
+              value={this.state.tag}
+              onChange={this.handleOnChange}
+              placeholder='Transport mode'
+            />
+            <button
+              onClick={this.createPost}
+              type='submit'
+              className='margin-right-15'
+            >Create Post</button>
+          </div>
+        </div>
+          <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
+        </div>
       </div>
     )
   }
@@ -116,3 +131,14 @@ class App extends Component {
 App.displayName = 'App' // Tell React Dev Tools the component name
 
 export default App
+
+
+{/* <div className='cards' isJourneyCreated={true}> 
+  <div className='card-item'>
+    <p>From Location: </p>
+    <p>To Location: </p>
+    <p>Transport mode: </p>
+    <p>Time: </p>
+    <p>Distance: </p>
+  </div>
+</div> */}

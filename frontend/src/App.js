@@ -11,6 +11,7 @@ import Search from './Maps/Search'
 import Loading from './ui/loading/Loading.js'
 import SearchInput, {createFilter} from 'react-search-input'
 import { getDirections, geocode, directionApiConversion } from './utils/google-api'
+import MapPage from './MapPage'
 
 class App extends Component {
 
@@ -32,7 +33,6 @@ class App extends Component {
     }
   }
 
-
   // Enable Realtime updates via Socket.io
   async componentDidMount () {
     this.loadPosts()
@@ -46,8 +46,6 @@ class App extends Component {
       this.setState((prevState) => ({ posts: updatePostsForDelete(prevState, post) }))
     })
   }
-
-  
 
   // Load posts
   loadPosts = async () => {
@@ -162,6 +160,9 @@ class App extends Component {
       this.setState({isMapShown: false})
     } else {
       this.setState({isMapShown: true})
+      //return address into payload 
+      //return into the map page.
+      return './map';
     }
 }
 
@@ -206,7 +207,7 @@ class App extends Component {
         </div>
         <MapComponent isMarkerShown={false} isMapShown={this.state.isMapShown}/>
         </div>
-        </div>
+      </div>
     )
   }
   

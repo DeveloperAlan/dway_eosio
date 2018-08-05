@@ -9,6 +9,7 @@ import Posts from './Posts/Posts'
 import MapComponent from './Maps/Maps'
 import Search from './Maps/Search'
 import Loading from './ui/loading/Loading.js'
+import UserButton from './ui/user_button.js'
 import SearchInput, {createFilter} from 'react-search-input'
 import { getDirections, geocode, directionApiConversion } from './utils/google-api'
 import MapPage from './MapPage'
@@ -192,7 +193,7 @@ class App extends Component {
   render () {
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
-        <div className='logo'>DWAY</div>
+        <div className='logo'>DWAY<UserButton /></div>
         <div className='main'>
         <div>
           {this.state.hidden ? null : <div className='header-title'>Let's start your journey.</div> }

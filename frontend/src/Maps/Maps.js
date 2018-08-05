@@ -6,7 +6,7 @@ const Maps = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD9YvX5tuxcYw-yuUifcl5KWFAoMAh2Xsw&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
+    containerElement: <div style={{ height: `600px` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   withScriptjs,
@@ -38,7 +38,7 @@ class MapComponent extends React.Component {
 
   render = () => {
     return (
-      <div className='lgcards'>
+      <div id='header-maps'>
         {this.props.isMapShown ?
         <Maps className="maps"
           isMarkerShown={this.state.isMarkerShown}

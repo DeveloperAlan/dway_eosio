@@ -11,6 +11,7 @@ import Search from './Maps/Search'
 import Loading from './ui/loading/Loading.js'
 import SearchInput, {createFilter} from 'react-search-input'
 import { getDirections, geocode, directionApiConversion } from './utils/google-api'
+import MapPage from './MapPage'
 
 class App extends Component {
 
@@ -28,7 +29,8 @@ class App extends Component {
       destinationLatLng: {},
       directions: {},
       loading: false,
-      isMapShown: false
+      isMapShown: false,
+      hidden: false
     }
   }
 
@@ -45,8 +47,6 @@ class App extends Component {
       this.setState((prevState) => ({ posts: updatePostsForDelete(prevState, post) }))
     })
   }
-
-
 
   // Load posts
   loadPosts = async () => {
@@ -147,7 +147,6 @@ class App extends Component {
       currentLocation: location,
       searchedLocation: location.formatted_address,
       destinationLatLng: location.geometry.location,
-      loading: true
     });
 
     let origin = {}
@@ -156,6 +155,13 @@ class App extends Component {
     }
   }
 
+  handleSearch(event, target) {
+    this.setState({
+      isMapShown: true,
+      hidden: true,
+      loading: true
+    })
+}
 
   geoSuccess = async (position)  => {
     let origin = {
@@ -183,40 +189,21 @@ class App extends Component {
     // latlngBounds(origin, this.state.currentLocation.geometry.location)
   }
 
-  handleSearch(event, target) {
-      console.log("click")
-      if (this.state.isMapShown) {
-        console.log("click2")
-        this.setState({isMapShown: false})
-      } else {
-        console.log("click3")
-        this.setState({isMapShown: true})
-      }
-  }
-
-  // home page
-  // then redirect to map
-  // add particles in home page for extra aesthetic.
-
   render () {
-
     return (
       <div className={`layoutStandard ${this.state.createOpen ? 'createOpen' : ''}`}>
         <div className='logo'>DWAY</div>
-        <Search handleSearch={this.handleSearch.bind(this)} onSearchLocation={this.updateSearchLocation.bind(this)}/>
-        <MapComponent isMarkerShown={false} directions={this.state.directions}isMapShown={this.state.isMapShown} />
-        <Loading loading={this.state.loading} />
-          <CreatePost createPost={this.createPost} />
-          <div className='cards'>
-            <Posts
-              posts={this.state.posts}
-              handleOnChange={this.handleOnChange}
-              deletePost={this.deletePost}
-              editPost={this.editPost}
-              likePost={this.likePost}
-            />
-          </div>
+        <div className='main'>
+        <div>
+          {this.state.hidden ? null : <div className='header-title'>Let's start your journey.</div> }
+          <Search handleSearch={this.handleSearch.bind(this)}
+            onSearchLocation={this.updateSearchLocation.bind(this)}/>
+          {this.state.searchedLocation ? null : <div>{this.state.searchedLocation}</div>}
+          <Loading loading={this.state.loading} />
         </div>
+        <MapComponent isMarkerShown={false} directions={this.state.directions}isMapShown={this.state.isMapShown}/>
+        </div>
+      </div>
     )
   }
 

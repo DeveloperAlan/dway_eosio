@@ -26,38 +26,38 @@ function searchLocation(search) {
 
 function getDirections(query) {
 
-    // return new Promise(resolve => {
-    //     console.log(query);
-    //     var destinationLat = query.destination.lat,
-    //         destinationLng = query.destination.lng,
-    //         originLat = query.origin.lat,
-    //         originLng = query.origin.lng,
-    //         proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    //         targetUrl = `https://maps.googleapis.com/maps/api/directions/json?destination=${destinationLat}%2C${destinationLng}&origin=${originLat}%2C${originLng}&key=${KEY}`
-
-    //     console.warn(proxyUrl + targetUrl)
-    //     resolve(fetch(proxyUrl + targetUrl)
-    //         .then(blob => blob.json())
-    //         .then(data => {
-    //             console.table(data);
-    //             return data;
-    //         })
-    //         .catch(e => {
-    //             console.log(e);
-    //             return e;
-    //         })
-    //     )
-    // })
-
     return new Promise(resolve => {
-        console.log(JSON.stringify(query))
-        googleMapsClient.directions(query, (err, response) => {
-            console.log(response)
-            // console.log(status)
-            resolve(response.json)
-            // return res;
-        })
+        console.log(query);
+        var destinationLat = query.destination.lat,
+            destinationLng = query.destination.lng,
+            originLat = query.origin.lat,
+            originLng = query.origin.lng,
+            proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = `https://maps.googleapis.com/maps/api/directions/json?destination=${destinationLat}%2C${destinationLng}&origin=${originLat}%2C${originLng}&key=${KEY}`
+
+        console.warn(proxyUrl + targetUrl)
+        resolve(fetch(proxyUrl + targetUrl)
+            .then(blob => blob.json())
+            .then(data => {
+                console.table(data);
+                return data;
+            })
+            .catch(e => {
+                console.log(e);
+                return e;
+            })
+        )
     })
+
+    // return new Promise(resolve => {
+    //     console.log(JSON.stringify(query))
+    //     googleMapsClient.directions(query, (err, response) => {
+    //         console.log(response)
+    //         // console.log(status)
+    //         resolve(response.json)
+    //         // return res;
+    //     })
+    // })
 }
 
 

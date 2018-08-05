@@ -8,7 +8,9 @@ class Search extends Component {
         super(props)
         this.state = {
             searchTerm: "",
-            searchResults: []
+            searchResults: [],
+            searched: false,
+            value: ""
         }
     }
 
@@ -21,6 +23,7 @@ class Search extends Component {
             console.log(location);
             this.setState({searchResults: location});
             this.setState({searchTerm: value});
+            this.setState({searched: false});
         } catch (err) {
             console.log(err);
         }
@@ -28,22 +31,45 @@ class Search extends Component {
 
     onResultClick(result) {
         console.log(result);
+        if (result == "") {
+            this.setState({
+                searchTerm: "",
+                value: "",
+                searchResults: []
+            })
+            return
+        }
+        this.setState({
+            searchTerm: result.formatted_address,
+            value: result.formatted_address
+        })
         this.props.onSearchLocation(result)
-    }    
+    }
+
+    onButtonClick() {
+        this.setState({
+            searched: true
+        })
+
+        this.props.handleSearch()
+    }
 
     render() {
         return (
             <div className='lgcards'>
-                    <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)}/> 
+                <div className="row">
+                    <SearchInput value={this.state.value} className="search-input" onChange={this.searchUpdated.bind(this)} placeholder="Destination Address"/>
                     {
-                        this.state.searchResults.map(result => {
-                        console.log(result.formatted_address);
-                            return (
-                                <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result)}/>
-                            )
-                        }) 
+                        !this.state.searched && this.state.searchResults.map(result => {
+                                return (
+                                    <SearchResult address={result.formatted_address} onClick={this.onResultClick.bind(this, result)}/>
+                                )
+                        })
                     }
-                    <button onClick={this.props.handleSearch}>Search</button>
+                </div>
+                <div className="row">
+                    <button onClick={this.onButtonClick.bind(this)}>Search</button>
+                </div>
             </div>
         )
     }

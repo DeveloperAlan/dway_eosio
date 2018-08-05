@@ -33,6 +33,7 @@ class App extends Component {
       isMapShown: false,
       hidden: false
     }
+    this.createLocation()
   }
 
   // Enable Realtime updates via Socket.io
@@ -53,6 +54,35 @@ class App extends Component {
   loadPosts = async () => {
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`)
     this.setState({ posts: response.data.reverse() })
+  }
+
+  createLocation = async (location) => {
+    try {
+      const newLocation = {
+        // ...location,
+        _id: {
+          timestamp: Math.floor(Date.now() / 1000),
+          author: process.env.REACT_APP_EOSIO_ACCOUNT,
+          loc_lat: 100,
+          loc_long: 100
+        },
+        author: process.env.REACT_APP_EOSIO_ACCOUNT
+      }
+
+      await this.eosio.transaction(
+        process.env.REACT_APP_EOSIO_ACCOUNT,
+        'createlocat', {
+          timestamp: newLocation._id.timestamp,
+          author: newLocation._id.author,
+          // user_id: newLocation._id.user_id,
+          loc_lat: newLocation._id.loc_lat,
+          loc_long: newLocation._id.loc_long,
+          // ...location
+        }
+      )
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   // Create a post

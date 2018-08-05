@@ -298,3 +298,9 @@ button, .btn-width-150, submit {
   padding: 10px 30px;
   background-color: #ffffff;
   z-index: 99; }
+
+  .score-title-space{
+    padding-top: 50px;
+    padding-left: 30px;
+    font-size: 50px;
+  }
